@@ -1,15 +1,33 @@
 function add(numbers) {
     try {
-        let del = ',';
-        if (numbers.startsWith("//")) {
+        let del="";
+        if (numbers.startsWith("//[")) {
+            var flag=1;
+            let i=3;
+            while(numbers[i]!=']'){
+                del+=numbers[i];
+                i++;
+            }            //taking delemiter from string
+        }
+        
+        else if (numbers.startsWith("//")) {
+            flag=0;
             del = numbers[2];           //taking delemiter from string
         }
-        const operands = numbers.split(new RegExp(`${del}|\n`)); // all numbers are stored separately if separators are delimiter specified or new line
-        if(del!=','){
+        else{
+            del=",";
+        }
+        const operands = numbers.split(new RegExp(`${del.replace(/\*/g, '\\*')}|\n`)); // all numbers are stored separately if separators are delimiter specified or new line
+        if(flag){
+            operands.shift();
+            operands.shift();
+        }
+        else if(del!=','){
             operands.shift(); // remove the delemiter part from operands
         }
-        let sum = 0;
         console.log(operands);
+        let sum = 0;
+
         let negativeNumbers = [];
 
         operands.forEach(element => {
@@ -30,5 +48,5 @@ function add(numbers) {
     }
 }
 
-var input = "//;1\n2;3;4;5000;6";
+var input = "//[***]\n1\n2***3";
 console.log("Sum: " + add(input));
