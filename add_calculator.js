@@ -1,4 +1,7 @@
 function add(numbers) {
+    if(numbers.length == 0) {
+        return 0;
+    }
     try {
         let del="";
         if (numbers.startsWith("//[")) {
@@ -48,5 +51,5 @@ function add(numbers) {
     }
 }
 
-var input = "//[***]\n1\n2***3";
+var input = "//[***]\n1***2***3";
 console.log("Sum: " + add(input));
